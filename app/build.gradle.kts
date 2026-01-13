@@ -34,6 +34,8 @@ android {
 }
 
 dependencies {
+    implementation("androidx.activity:activity:1.8.0")
+    implementation("androidx.fragment:fragment:1.6.2")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

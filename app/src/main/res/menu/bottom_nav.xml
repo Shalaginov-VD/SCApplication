@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:title="Главная"
+        android:icon="@drawable/outline_steps_24" />
+    <item
+        android:id="@+id/history"
+        android:title="Статистика"
+        android:icon="@drawable/outline_monitoring_24" />
+</menu>
