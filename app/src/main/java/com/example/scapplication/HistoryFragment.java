@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class HistoryFragment extends Fragment {
     private TextView historyTextView;
     private DBHelper helper;
     private SharedPreferences prefs;
+    private BarChartView barChartView;
 
     public HistoryFragment() {
     }
@@ -52,6 +54,7 @@ public class HistoryFragment extends Fragment {
         historyTextView = view.findViewById(R.id.historyTextView);
         helper = new DBHelper(getContext());
         prefs = requireContext().getSharedPreferences(PREFS_NAME, 0);
+        barChartView = view.findViewById(R.id.barChartView);
 
         loadHistoryData();
         return view;
@@ -64,10 +67,15 @@ public class HistoryFragment extends Fragment {
         int totalSteps = 0;
         StringBuilder historyText = new StringBuilder();
 
+        List<BarChartView.BarData> barDataList = new ArrayList<>();
+
         for (DBHelper.StepEntry entry : stepsList) {
             if (entry.steps > 0) {
                 hasStepsData = true;
                 totalSteps += entry.steps;
+
+                String shortDayName = getShortDayName(entry.dayName);
+                barDataList.add(new BarChartView.BarData(shortDayName, entry.steps));
             }
         }
 
@@ -88,6 +96,9 @@ public class HistoryFragment extends Fragment {
         } else if (hasStepsData) {
             historyText.append("История шагов за неделю:\n");
 
+            barChartView.setData(barDataList);
+            barChartView.setVisibility(View.VISIBLE);
+
             for (DBHelper.StepEntry entry : stepsList) {
                 if (entry.steps > 0) {
                     historyText.append(entry.dayName)
@@ -104,6 +115,27 @@ public class HistoryFragment extends Fragment {
         }
 
         historyTextView.setText(historyText.toString());
+    }
+
+    private String getShortDayName(String fullDayName) {
+        switch (fullDayName) {
+            case "Понедельник":
+                return "Пн";
+            case "Вторник":
+                return "Вт";
+            case "Среда":
+                return "Ср";
+            case "Четверг":
+                return "Чт";
+            case "Пятница":
+                return "Пт";
+            case "Суббота":
+                return "Сб";
+            case "Воскресенье":
+                return "Вс";
+            default:
+                return fullDayName.length() > 3 ? fullDayName.substring(0, 3) : fullDayName;
+        }
     }
 
     @Override
