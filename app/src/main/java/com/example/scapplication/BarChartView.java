@@ -14,9 +14,7 @@ import java.util.List;
 public class BarChartView extends View {
 
     private List<BarData> data = new ArrayList<>();
-    private Paint barPaint;
-    private Paint textPaint;
-    private Paint axisPaint;
+    private Paint barPaint, textPaint, axisPaint;
     private float maxValue = 0;
     private float padding = 20;
     private float barWidthRatio = 0.6f;
@@ -37,18 +35,15 @@ public class BarChartView extends View {
     }
 
     private void init() {
-        // Настройка кисти для столбцов
         barPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         barPaint.setColor(Color.parseColor("#2196F3"));
         barPaint.setStyle(Paint.Style.FILL);
 
-        // Настройка кисти для текста
         textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         textPaint.setColor(Color.BLACK);
         textPaint.setTextSize(28);
         textPaint.setTextAlign(Paint.Align.CENTER);
 
-        // Настройка кисти для осей
         axisPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         axisPaint.setColor(Color.GRAY);
         axisPaint.setStrokeWidth(2);
@@ -67,7 +62,7 @@ public class BarChartView extends View {
                 maxValue = bar.value;
             }
         }
-        // Если все значения 0, установим maxValue = 1 чтобы избежать деления на 0
+
         if (maxValue == 0) {
             maxValue = 1;
         }
@@ -84,40 +79,32 @@ public class BarChartView extends View {
         int width = getWidth();
         int height = getHeight();
 
-        // Рисуем ось X
-        float axisY = height - padding - 50; // Отступ снизу для подписей
+        float axisY = height - padding - 50;
         canvas.drawLine(padding, axisY, width - padding, axisY, axisPaint);
 
-        // Рассчитываем ширину столбца
         float availableWidth = width - 2 * padding;
         float barWidth = (availableWidth / data.size()) * barWidthRatio;
         float spaceBetweenBars = (availableWidth / data.size()) * (1 - barWidthRatio);
 
-        // Рисуем столбцы
         for (int i = 0; i < data.size(); i++) {
             BarData bar = data.get(i);
 
             if (bar.value == 0) {
-                continue; // Пропускаем нулевые значения
+                continue;
             }
 
-            // Рассчитываем координаты столбца
             float left = padding + i * (barWidth + spaceBetweenBars) + spaceBetweenBars / 2;
             float right = left + barWidth;
 
-            // Высота столбца пропорциональна значению
             float barHeight = (bar.value / maxValue) * (axisY - padding - 50);
             float top = axisY - barHeight;
             float bottom = axisY;
 
-            // Рисуем столбец
             canvas.drawRect(left, top, right, bottom, barPaint);
 
-            // Рисуем значение над столбцом
             String valueText = String.valueOf((int) bar.value);
             canvas.drawText(valueText, left + barWidth / 2, top - 10, textPaint);
 
-            // Рисуем подпись дня под осью
             canvas.drawText(bar.label, left + barWidth / 2, axisY + 40, textPaint);
         }
     }

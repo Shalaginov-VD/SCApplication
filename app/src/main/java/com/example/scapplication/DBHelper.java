@@ -28,8 +28,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     COLUMN_DATE + " TEXT UNIQUE," +
                     COLUMN_STEPS + " INTEGER," +
-                    COLUMN_TIMESTAMP + " INTEGER" +
-                    ")";
+                    COLUMN_TIMESTAMP + " INTEGER" + ")";
 
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);

@@ -111,7 +111,7 @@ public class HistoryFragment extends Fragment {
             }
         } else {
             historyText.append("История шагов за неделю:\n");
-                    historyText.append("Данных о шагах пока нет.");
+            historyText.append("Данных о шагах пока нет.");
         }
 
         historyTextView.setText(historyText.toString());

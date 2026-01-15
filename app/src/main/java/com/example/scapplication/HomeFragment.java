@@ -191,7 +191,8 @@ public class HomeFragment extends Fragment implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event == null) return;
+        if (event == null)
+            return;
 
         if (running) {
             totalSteps = event.values[0];
