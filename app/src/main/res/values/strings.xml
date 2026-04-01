@@ -1,5 +1,42 @@
 <resources>
-    <string name="app_name">Мои шаги</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name" translatable="false">Мои шаги</string>
+    <string name="home_menu">Главная</string>
+    <string name="history_menu">Статистика</string>
+    <string name="settings_menu">Настройки</string>
+    <string name="steps_title">Шаги</string>
+    <string name="permission_granted">Разрешение предоставлено</string>
+    <string name="permission_denied">Разрешение запрещено</string>
+    <string name="sensor_not_found">Датчик счетчика шагов не найден!</string>
+    <string name="permission_required_message">Для подсчета шагов необходимо разрешение на отслеживание активности</string>
+    <string name="hold_to_reset">Удерживайте для сброса шагов</string>
+    <string name="history_title">График шагов за неделю</string>
+    <string name="history_empty_start">Начните ходить, чтобы увидеть свою статистику здесь.</string>
+    <string name="history_subtitle">История шагов за неделю:\n</string>
+    <string name="history_no_data">Данных о шагах пока нет.</string>
+    <string name="steps_unit"> шагов\n</string>
+    <string name="day_mon_full">Понедельник</string>
+    <string name="day_tue_full">Вторник</string>
+    <string name="day_wed_full">Среда</string>
+    <string name="day_thu_full">Четверг</string>
+    <string name="day_fri_full">Пятница</string>
+    <string name="day_sat_full">Суббота</string>
+    <string name="day_sun_full">Воскресенье</string>
+    <string name="day_mon_short">Пн</string>
+    <string name="day_tue_short">Вт</string>
+    <string name="day_wed_short">Ср</string>
+    <string name="day_thu_short">Чт</string>
+    <string name="day_fri_short">Пт</string>
+    <string name="day_sat_short">Сб</string>
+    <string name="day_sun_short">Вс</string>
+    <string name="language_title">Язык</string>
+    <string-array name="languages_array">
+        <item>Русский</item>
+        <item>Английский</item>
+    </string-array>
+    <string name="night_title">Ночной режим</string>
+    <string name="goal_title">Установить цель шагов</string>
+    <string name="notification_goal_title">Цель достигнута!</string>
+    <string name="notification_goal_text">Поздравляем! Вы прошли %1$d шагов!</string>
+    <string name="channel_goal_name">Достижение целей</string>
+    <string name="navigation_sound_title">Звук навигации</string>
 </resources>

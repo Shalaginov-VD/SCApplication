@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_menu">Home</string>
+    <string name="history_menu">Statistics</string>
+    <string name="settings_menu">Settings</string>
+    <string name="steps_title">Steps</string>
+    <string name="permission_granted">Permission granted</string>
+    <string name="permission_denied">Permission denied</string>
+    <string name="sensor_not_found">Step counter sensor not found!</string>
+    <string name="permission_required_message">Activity tracking permission is required to count steps</string>
+    <string name="hold_to_reset">Hold to reset steps</string>
+    <string name="history_title">Weekly Step Chart</string>
+    <string name="history_empty_start">Start walking to see your statistics here.</string>
+    <string name="history_subtitle">Weekly step history:\n</string>
+    <string name="history_no_data">No step data yet.</string>
+    <string name="steps_unit"> steps\n</string>
+    <string name="day_mon_full">Monday</string>
+    <string name="day_tue_full">Tuesday</string>
+    <string name="day_wed_full">Wednesday</string>
+    <string name="day_thu_full">Thursday</string>
+    <string name="day_fri_full">Friday</string>
+    <string name="day_sat_full">Saturday</string>
+    <string name="day_sun_full">Sunday</string>
+    <string name="day_mon_short">Mon</string>
+    <string name="day_tue_short">Tue</string>
+    <string name="day_wed_short">Wed</string>
+    <string name="day_thu_short">Thu</string>
+    <string name="day_fri_short">Fri</string>
+    <string name="day_sat_short">Sat</string>
+    <string name="day_sun_short">Sun</string>
+    <string name="language_title">Language</string>
+    <string-array name="languages_array">
+        <item>Russian</item>
+        <item>English</item>
+    </string-array>
+    <string name="night_title">Night mode</string>
+    <string name="goal_title">Set a step goal</string>
+    <string name="notification_goal_title">Goal reached!</string>
+    <string name="notification_goal_text">Congratulations! You have walked %1$d steps!</string>
+    <string name="channel_goal_name">Goal Achievement</string>
+    <string name="navigation_sound_title">Navigation sound</string>
+</resources>

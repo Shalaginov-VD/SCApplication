@@ -1,0 +1,7 @@
+<resources>
+    <color name="circle_stroke">#FFFFFF</color>
+    <color name="steps_color">#FFFFFF</color>
+    <color name="bar_color">#757575</color>
+    <color name="chart_text_color">#FFFFFF</color>
+    <color name="axis_color">#BDBDBD</color>
+</resources>

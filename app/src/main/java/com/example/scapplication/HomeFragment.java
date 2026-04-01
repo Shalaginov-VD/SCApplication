@@ -1,6 +1,8 @@
 package com.example.scapplication;
 
 import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -46,10 +49,10 @@ public class HomeFragment extends Fragment implements SensorEventListener {
                 new ActivityResultContracts.RequestPermission(),
                 isGranted -> {
                     if (isGranted) {
-                        Toast.makeText(getContext(), "Разрешение предоставлено", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.permission_granted), Toast.LENGTH_SHORT).show();
                         initSensor();
                     } else {
-                        Toast.makeText(getContext(), "Разрешение запрещено", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.permission_denied), Toast.LENGTH_SHORT).show();
                         handlePermissionDenied();
                     }
                 }
@@ -123,7 +126,7 @@ public class HomeFragment extends Fragment implements SensorEventListener {
         }
 
         if (stepSensor == null) {
-            Toast.makeText(getContext(), "Датчик счетчика шагов не найден!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getString(R.string.sensor_not_found), Toast.LENGTH_LONG).show();
         } else {
             registerSensor();
         }
@@ -134,7 +137,7 @@ public class HomeFragment extends Fragment implements SensorEventListener {
             stepsTakenTextView.setText("0");
         }
         Toast.makeText(getContext(),
-                "Для подсчета шагов необходимо разрешение на отслеживание активности",
+                getString(R.string.permission_required_message),
                 Toast.LENGTH_LONG).show();
     }
 
@@ -210,8 +213,47 @@ public class HomeFragment extends Fragment implements SensorEventListener {
                 stepsTakenTextView.setText(String.valueOf(Math.max(0, totalStepsToday)));
             }
 
+            checkStepGoal(totalStepsToday);
+
             saveStepsToDatabase(totalStepsToday);
         }
+    }
+
+    private void checkStepGoal(int currentSteps) {
+        SharedPreferences prefs = getContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+        int goal = prefs.getInt("step_goal", 0);
+        boolean alreadyNotified = prefs.getBoolean("goal_reached_notified", false);
+
+        if (goal > 0 && currentSteps >= goal && !alreadyNotified) {
+            showGoalNotification(goal);
+
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("goal_reached_notified", true);
+            editor.apply();
+        }
+    }
+
+    private void showGoalNotification(int goal) {
+        String CHANNEL_ID = "goal_channel";
+        NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_goal_name);
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_HIGH);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        String title = getString(R.string.notification_goal_title);
+        String content = getString(R.string.notification_goal_text, goal);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle(title)
+                .setContentText(content)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true);
+
+        notificationManager.notify(2, builder.build());
     }
 
     private void saveStepsToDatabase(int steps) {
@@ -223,7 +265,7 @@ public class HomeFragment extends Fragment implements SensorEventListener {
     private void resetSteps() {
         if (stepsTakenTextView != null) {
             stepsTakenTextView.setOnClickListener(v ->
-                    Toast.makeText(getContext(), "Удерживайте для сброса шагов", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(getContext(), getString(R.string.hold_to_reset), Toast.LENGTH_SHORT).show()
             );
 
             stepsTakenTextView.setOnLongClickListener(v -> {

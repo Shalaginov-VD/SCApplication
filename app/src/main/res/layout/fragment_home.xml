@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
@@ -9,8 +10,9 @@
         android:id="@+id/steps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Шаги"
-        android:textColor="@color/black"
+        style="@style/text"
+        android:text="@string/steps_title"
+        android:textColor="@color/steps_color"
         android:textSize="20sp"
         android:layout_gravity="center"
         android:layout_marginBottom="80dp" />
@@ -19,8 +21,9 @@
         android:id="@+id/textView_stepsTaken"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/text"
         android:text="0"
-        android:textColor="@color/black"
+        android:textColor="@color/steps_color"
         android:textSize="100sp"
         android:layout_gravity="center" />
 

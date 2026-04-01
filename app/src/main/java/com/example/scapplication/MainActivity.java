@@ -1,5 +1,8 @@
 package com.example.scapplication;
 
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -14,10 +17,23 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
-    private Fragment homeFragment, historyFragment;
+    private Fragment homeFragment, historyFragment, settingsFragment;
+
+    private void playNavSound() {
+        SharedPreferences prefs = getSharedPreferences("Mode", MODE_PRIVATE);
+        if (prefs.getBoolean("sound_enabled", true)) {
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.navigation);
+            mediaPlayer.setOnCompletionListener(mp -> {
+                mp.release();
+            });
+            mediaPlayer.start();
+        }
+    }
 
     private void setCurrentFragment(Fragment fragment) {
         getSupportFragmentManager()
@@ -28,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        loadLocale();
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -40,22 +57,52 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_nav);
         homeFragment = new HomeFragment();
         historyFragment = new HistoryFragment();
+        settingsFragment = new SettingsFragment();
 
-        setCurrentFragment(homeFragment);
+        if (savedInstanceState == null) {
+            if (getIntent().getBooleanExtra("OPEN_SETTINGS", false)) {
+                setCurrentFragment(settingsFragment);
+                bottomNavigationView.setSelectedItemId(R.id.settings);
+            } else {
+                setCurrentFragment(homeFragment);
+            }
+        }
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                Fragment selectedFragment = null;
+
                 switch (menuItem.getItemId()) {
                     case R.id.home:
-                        setCurrentFragment(homeFragment);
+                        selectedFragment = homeFragment;
                         break;
                     case R.id.history:
-                        setCurrentFragment(historyFragment);
+                        selectedFragment = historyFragment;
                         break;
+                    case R.id.settings:
+                        selectedFragment = settingsFragment;
+                        break;
+                }
+
+                if (selectedFragment != null) {
+                    playNavSound();
+                    setCurrentFragment(selectedFragment);
                 }
                 return true;
             }
         });
+    }
+
+    private void loadLocale() {
+        SharedPreferences prefs = getSharedPreferences("Settings", MODE_PRIVATE);
+        String language = prefs.getString("My_Lang", "ru");
+
+        Locale locale = new Locale(language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.setLocale(locale);
+
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
     }
 }

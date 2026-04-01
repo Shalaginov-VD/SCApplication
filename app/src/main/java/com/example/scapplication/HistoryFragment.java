@@ -92,26 +92,27 @@ public class HistoryFragment extends Fragment {
                 installCal.get(Calendar.DAY_OF_YEAR) == todayCal.get(Calendar.DAY_OF_YEAR);
 
         if (isInstallDay && !hasStepsData) {
-            historyText.append("Начните ходить, чтобы увидеть свою статистику здесь.");
+            historyText.append(getString(R.string.history_empty_start));
         } else if (hasStepsData) {
-            historyText.append("История шагов за неделю:\n");
+            historyText.append(getString(R.string.history_subtitle));
 
             barChartView.setData(barDataList);
             barChartView.setVisibility(View.VISIBLE);
 
             for (DBHelper.StepEntry entry : stepsList) {
                 if (entry.steps > 0) {
-                    historyText.append(entry.dayName)
+                    historyText.append(getFullDayName(entry.dayName))
                             .append(" (")
                             .append(entry.date)
                             .append("): ")
                             .append(entry.steps)
-                            .append(" шагов\n");
+                            .append(" ")
+                            .append(getString(R.string.steps_unit));
                 }
             }
         } else {
-            historyText.append("История шагов за неделю:\n");
-            historyText.append("Данных о шагах пока нет.");
+            historyText.append(getString(R.string.history_subtitle));
+            historyText.append(getString(R.string.history_no_data));
         }
 
         historyTextView.setText(historyText.toString());
@@ -120,21 +121,42 @@ public class HistoryFragment extends Fragment {
     private String getShortDayName(String fullDayName) {
         switch (fullDayName) {
             case "Понедельник":
-                return "Пн";
+                return getString(R.string.day_mon_short);
             case "Вторник":
-                return "Вт";
+                return getString(R.string.day_tue_short);
             case "Среда":
-                return "Ср";
+                return getString(R.string.day_wed_short);
             case "Четверг":
-                return "Чт";
+                return getString(R.string.day_thu_short);
             case "Пятница":
-                return "Пт";
+                return getString(R.string.day_fri_short);
             case "Суббота":
-                return "Сб";
+                return getString(R.string.day_sat_short);
             case "Воскресенье":
-                return "Вс";
+                return getString(R.string.day_sun_short);
             default:
                 return fullDayName.length() > 3 ? fullDayName.substring(0, 3) : fullDayName;
+        }
+    }
+
+    private String getFullDayName(String dbDayName) {
+        switch (dbDayName) {
+            case "Понедельник":
+                return getString(R.string.day_mon_full);
+            case "Вторник":
+                return getString(R.string.day_tue_full);
+            case "Среда":
+                return getString(R.string.day_wed_full);
+            case "Четверг":
+                return getString(R.string.day_thu_full);
+            case "Пятница":
+                return getString(R.string.day_fri_full);
+            case "Суббота":
+                return getString(R.string.day_sat_full);
+            case "Воскресенье":
+                return getString(R.string.day_sun_full);
+            default:
+                return dbDayName;
         }
     }
 

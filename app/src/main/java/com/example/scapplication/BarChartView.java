@@ -2,11 +2,11 @@ package com.example.scapplication;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,17 +35,21 @@ public class BarChartView extends View {
     }
 
     private void init() {
+        int barColor = ContextCompat.getColor(getContext(), R.color.bar_color);
+        int textColor = ContextCompat.getColor(getContext(), R.color.chart_text_color);
+        int axisColor = ContextCompat.getColor(getContext(), R.color.axis_color);
+
         barPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        barPaint.setColor(Color.parseColor("#2196F3"));
+        barPaint.setColor(barColor);
         barPaint.setStyle(Paint.Style.FILL);
 
         textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        textPaint.setColor(Color.BLACK);
+        textPaint.setColor(textColor);
         textPaint.setTextSize(28);
         textPaint.setTextAlign(Paint.Align.CENTER);
 
         axisPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        axisPaint.setColor(Color.GRAY);
+        axisPaint.setColor(axisColor);
         axisPaint.setStrokeWidth(2);
     }
 
@@ -117,5 +121,12 @@ public class BarChartView extends View {
             this.label = label;
             this.value = value;
         }
+    }
+
+    @Override
+    protected void onConfigurationChanged(android.content.res.Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        init();
+        invalidate();
     }
 }
