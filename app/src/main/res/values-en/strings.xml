@@ -8,6 +8,9 @@
     <string name="permission_denied">Permission denied</string>
     <string name="sensor_not_found">Step counter sensor not found!</string>
     <string name="permission_required_message">Activity tracking permission is required to count steps</string>
+    <string name="tutorial_title">How to reset steps manually?</string>
+    <string name="tutorial_message">To reset your steps manually, simply press and hold the step count number on the home screen.\n\nThis will trigger the instant reset feature.</string>
+    <string name="ok_button">Got it</string>
     <string name="hold_to_reset">Hold to reset steps</string>
     <string name="history_title">Weekly Step Chart</string>
     <string name="history_empty_start">Start walking to see your statistics here.</string>
@@ -39,4 +42,10 @@
     <string name="notification_goal_text">Congratulations! You have walked %1$d steps!</string>
     <string name="channel_goal_name">Goal Achievement</string>
     <string name="navigation_sound_title">Navigation sound</string>
+    <string name="reset_title">Reset statistics</string>
+    <string name="reset_dialog_title">Reset Statistics</string>
+    <string name="reset_dialog_message">Are you sure? All step data will be permanently deleted.</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
+    <string name="stats_reset_toast">Statistics reset</string>
 </resources>

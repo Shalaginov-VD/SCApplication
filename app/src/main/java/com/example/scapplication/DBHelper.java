@@ -141,4 +141,10 @@ public class DBHelper extends SQLiteOpenHelper {
             this.dayName = dayName;
         }
     }
+
+    public void clearAllData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_STEPS);
+        db.close();
+    }
 }

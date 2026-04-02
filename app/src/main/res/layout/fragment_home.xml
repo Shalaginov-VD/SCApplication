@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragment">
 
+    <ImageButton
+        android:id="@+id/btn_tutorial"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/baseline_help_24"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Обучение"
+        android:layout_gravity="top|end"
+        android:layout_margin="16dp" />
+
     <TextView
         android:id="@+id/steps"
         android:layout_width="wrap_content"

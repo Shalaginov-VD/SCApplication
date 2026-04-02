@@ -8,6 +8,9 @@
     <string name="permission_denied">Разрешение запрещено</string>
     <string name="sensor_not_found">Датчик счетчика шагов не найден!</string>
     <string name="permission_required_message">Для подсчета шагов необходимо разрешение на отслеживание активности</string>
+    <string name="tutorial_title">Как сбросить шаги вручную?</string>
+    <string name="tutorial_message">Чтобы сбросить шаги вручную, просто нажмите и удерживайте цифру с количеством шагов на главном экране.\n\nЭто вызовет функцию мгновенного сброса.</string>
+    <string name="ok_button">Понятно</string>
     <string name="hold_to_reset">Удерживайте для сброса шагов</string>
     <string name="history_title">График шагов за неделю</string>
     <string name="history_empty_start">Начните ходить, чтобы увидеть свою статистику здесь.</string>
@@ -39,4 +42,11 @@
     <string name="notification_goal_text">Поздравляем! Вы прошли %1$d шагов!</string>
     <string name="channel_goal_name">Достижение целей</string>
     <string name="navigation_sound_title">Звук навигации</string>
+    <string name="reset_title">Сбросить статистику</string>
+    <string name="reset_dialog_title">Сброс статистики</string>
+    <string name="reset_dialog_message">Вы уверены? Все данные о шагах будут безвозвратно удалены.</string>
+    <string name="yes">Да</string>
+    <string name="cancel">Отмена</string>
+    <string name="stats_reset_toast">Статистика сброшена</string>
+
 </resources>

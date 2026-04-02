@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class HomeFragment extends Fragment implements SensorEventListener {
     private float totalSteps = 0f;
     private float previousTotalSteps = 0f;
     private TextView stepsTakenTextView;
+    private ImageButton btnTutorial;
     private DBHelper helper;
     private String currentDate;
     private int savedStepsForToday = 0;
@@ -66,6 +68,8 @@ public class HomeFragment extends Fragment implements SensorEventListener {
 
         stepsTakenTextView = view.findViewById(R.id.textView_stepsTaken);
 
+        btnTutorial = view.findViewById(R.id.btn_tutorial);
+
         helper = new DBHelper(getContext());
 
         currentDate = DBHelper.getCurrentDate();
@@ -76,6 +80,14 @@ public class HomeFragment extends Fragment implements SensorEventListener {
         loadData();
         resetSteps();
         checkDayChange();
+
+        btnTutorial.setOnClickListener(v -> {
+            new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                    .setTitle(getString(R.string.tutorial_title))
+                    .setMessage(getString(R.string.tutorial_message))
+                    .setPositiveButton(getString(R.string.ok_button), null)
+                    .show();
+        });
 
         return view;
     }

@@ -38,7 +38,7 @@ public class SettingsFragment extends Fragment {
     private boolean isFirstLoad = true;
 
     private EditText goalEditText;
-    private Button btnSaveGoal;
+    private Button btnSaveGoal, btnReset;
 
     public SettingsFragment() {
     }
@@ -71,6 +71,7 @@ public class SettingsFragment extends Fragment {
         goalEditText = view.findViewById(R.id.goal);
         btnSaveGoal = view.findViewById(R.id.save_goal);
         soundSwitcher = view.findViewById(R.id.sound_switch);
+        btnReset = view.findViewById(R.id.btn_reset);
 
         sharedPreferences = getContext().getSharedPreferences("Mode", Context.MODE_PRIVATE);
         nightMode = sharedPreferences.getBoolean("night", false);
@@ -151,6 +152,24 @@ public class SettingsFragment extends Fragment {
             editor = sharedPreferences.edit();
             editor.putBoolean("sound_enabled", isChecked);
             editor.apply();
+        });
+
+        DBHelper dbHelper = new DBHelper(getContext());
+
+        btnReset.setOnClickListener(v -> {
+            new androidx.appcompat.app.AlertDialog.Builder(getContext())
+                    .setTitle(getString(R.string.reset_dialog_title))
+                    .setMessage(getString(R.string.reset_dialog_message))
+                    .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
+                        dbHelper.clearAllData();
+
+                        SharedPreferences stepPrefs = getActivity().getSharedPreferences("StepCounterPrefs", Context.MODE_PRIVATE);
+                        stepPrefs.edit().putInt("steps", 0).apply();
+
+                        Toast.makeText(getContext(), getString(R.string.stats_reset_toast), Toast.LENGTH_SHORT).show();
+                    })
+                    .setNegativeButton(getString(R.string.cancel), null)
+                    .show();
         });
 
         return view;

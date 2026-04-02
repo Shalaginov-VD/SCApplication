@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="circle_stroke">#000000</color>
+    <color name="help_icon">#000000</color>
     <color name="steps_color">#000000</color>
     <color name="bar_color">#2196F3</color>
     <color name="chart_text_color">#000000</color>
